@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelliGraph | Smart Graph System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script>
+        try {
+            if (localStorage.getItem("ig-theme") === "dark") {
+                document.body.classList.add("dark-theme");
+            }
+        } catch (e) {}
+    </script>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">IntelliGraph<span>.</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#campus-tool">Campus Navigator</a></li>
+                <li><a href="#study-tool">Study Planner</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" type="button">🌙 Dark Mode</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="tagline">POWERED BY GRAPH THEORY</p>
+                <h1>Navigate Smarter.<br><span>Learn Better</span></h1>
+                <p class="hero-description">
+                    An intelligent graph-based system designed to
+                    simplify campus navigation and organize your
+                    learning journey.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#campus-tool" class="btn primary-btn">Find a Route</a>
+                    <a href="#study-tool" class="btn secondary-btn">Plan Your Studies</a>
+                </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="graph-circle circle-one"></div>
+                <div class="graph-circle circle-two"></div>
+                <div class="graph-circle circle-three"></div>
+                <div class="graph-center">IG</div>
+            </div>
+        </section>
+
+        <section class="modules" id="modules">
+            <div class="section-heading">
+                <p class="tagline">OUR MODULES</p>
+                <h2>Explore IntelliGraph</h2>
+                <p>Two applications of graph theory in everyday student life.</p>
+            </div>
+            <div class="module-container">
+                <div class="module-card">
+                    <div class="module-icon">⌖</div>
+                    <h3>Campus Navigation</h3>
+                    <p>Find the shortest path between campus locations using weighted graphs and Dijkstra's algorithm.</p>
+                    <a href="#campus-tool">Explore Module →</a>
+                </div>
+                <div class="module-card">
+                    <div class="module-icon">⌘</div>
+                    <h3>Study Priority Planner</h3>
+                    <p>Organize topics based on their prerequisites using directed graphs and topological sorting.</p>
+                    <a href="#study-tool">Explore Module →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="workspace" id="campus-tool">
+            <div class="section-heading">
+                <p class="tagline">MODULE 01</p>
+                <h2>Campus Navigation</h2>
+                <p>Shortest path calculation using Dijkstra's algorithm.</p>
+            </div>
+            <p class="nav-notice" id="nav-notice"></p>
+            <div class="nav-module">
+                <form class="nav-controls" onsubmit="return false">
+                    <label for="nav-from">Start</label>
+                    <select id="nav-from"></select>
+                    <label for="nav-to">Destination</label>
+                    <select id="nav-to"></select>
+                    <label for="nav-closed">Close a location (to test unreachable routes)</label>
+                    <select id="nav-closed"></select>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn primary-btn" id="nav-find">Find Route</button>
+                        <button type="button" class="btn secondary-btn" id="nav-reset">Reset</button>
+                    </div>
+                    <div class="nav-result" id="nav-result" aria-live="polite"></div>
+                </form>
+                <div class="map-card">
+                    <div class="map-scroll">
+                        <svg id="nav-svg" viewBox="0 0 1100 640" role="img" aria-label="Campus graph. Select two locations to highlight the shortest route."></svg>
+                    </div>
+                    <p class="map-legend">Click two locations on the map, or use the lists. Dashed line: stairs. Dotted line: ramp. Highlighted line: shortest route.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="workspace" id="study-tool">
+            <div class="section-heading">
+                <p class="tagline">MODULE 02</p>
+                <h2>Study Priority Planner</h2>
+                <p>Arrange topics according to their dependencies.</p>
+            </div>
+            <div class="nav-module">
+                <form class="nav-controls" onsubmit="return false">
+                    <label for="plan-topic">New topic</label>
+                    <div class="plan-row">
+                        <input id="plan-topic" type="text" maxlength="40" placeholder="e.g. Graph Theory" autocomplete="off">
+                        <button type="button" class="btn primary-btn" id="plan-add">Add</button>
+                    </div>
+                    <label for="plan-pre">Prerequisite (study first)</label>
+                    <select id="plan-pre"></select>
+                    <label for="plan-post">Topic that depends on it</label>
+                    <select id="plan-post"></select>
+                    <button type="button" class="btn secondary-btn" id="plan-link">Add Prerequisite</button>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn primary-btn" id="plan-sort">Generate Order</button>
+                        <button type="button" class="btn secondary-btn" id="plan-sample">Load Sample</button>
+                        <button type="button" class="btn secondary-btn" id="plan-reset">Reset</button>
+                    </div>
+                    <div class="nav-result" id="plan-message" aria-live="polite"></div>
+                    <p class="list-title">Topics</p>
+                    <div class="chips" id="plan-topics"></div>
+                    <p class="list-title">Prerequisites</p>
+                    <ul class="edge-list" id="plan-edges"></ul>
+                </form>
+                <div class="map-card">
+                    <svg id="plan-svg" viewBox="0 0 600 240" role="img" aria-label="Prerequisite graph"></svg>
+                    <p class="map-legend">An arrow A → B means A must be studied before B. Numbered badges show the generated order. Red marks a cycle.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h3>IntelliGraph<span>.</span></h3>
+        <p>A Discrete Mathematics Project | B.Tech CSE</p>
+        <p>© 2026 IntelliGraph. Academic Project.</p>
+    </footer>
+
+    <script src="graph.js"></script>
+    <script src="campusdata.js"></script>
+    <script src="dijkstra.js"></script>
+    <script src="navigation.js"></script>
+    <script src="topo.js"></script>
+    <script src="planner.js"></script>
+    <script src="script.js"></script>
+    <script>
+        if (typeof dijkstra === "undefined" || typeof topologicalSort === "undefined") {
+            document.getElementById("nav-notice").textContent =
+                "Some script files were not found. Keep index.html, style.css and every .js file together in one folder.";
+        }
+    </script>
+</body>
+</html>
