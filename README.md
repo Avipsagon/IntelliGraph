@@ -90,8 +90,6 @@ This project is developed as part of the **Discrete Mathematics** coursework for
 ## 👩‍💻 Contributors
 
 **Avipsa Gon**  
-B.Tech Computer Science and Engineering  
-Manav Rachna University
 
 ---
 
