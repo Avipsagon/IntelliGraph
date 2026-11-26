@@ -87,6 +87,8 @@ This project is developed as part of the **Discrete Mathematics** coursework for
 - Improving graph visualization and user interaction.
 - Introducing additional graph-based planning features.
 
+🌐 **Live Website:** [View IntelliGraph](https://avipsagon.github.io/IntelliGraph/)
+
 ## 👩‍💻 Contributors
 
 **Avipsa Gon**  
